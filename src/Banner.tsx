@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <div className="flex justify-center items-center bg-white-500 py-4">
       <div className="text-center">
-        <h1 className="text-5xl  font-inter-bold mb-4">
+        <h1 className="text-5xl  font-inter font-bold mb-4">
           <span
             className="bg-gradient-to-r text-transparent bg-clip-text"
             style={{
@@ -15,7 +15,7 @@ const Banner = () => {
             Retirement Calculator
           </span>
         </h1>
-        <p className="text-lg font-medium text-white font-inter font-sansserif">
+        <p className="text-lg font-medium text-white font-inter font-sansserif ">
           "Calculate Your Future Financial Freedom Now!"
         </p>
       </div>

@@ -50,8 +50,12 @@ export const calculateRetirementValues = (
     (requiredSavings - currentRetirementSavings + currentRetirementSavingsContribution * 12 * remainingYears) /
     (remainingYears * 12);
 
-  return { requiredSavings, requiredMonthlyContribution };
+  return {
+    requiredSavings: Number(requiredSavings.toFixed(2)),
+    requiredMonthlyContribution: Number(requiredMonthlyContribution.toFixed(2)),
+  };
 };
+
 
 const calculatorSlice = createSlice({
   name: 'calculator',
