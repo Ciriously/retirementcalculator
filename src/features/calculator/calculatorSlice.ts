@@ -1,27 +1,31 @@
+// In calculatorSlice.ts
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CalculatorState {
-  name: string;
-  currentAge: number;
-  retirementAge: number;
-  currentSavings: number;
-  savingsContribution: number;
-  monthlyIncomeRequired: number;
-  requiredSavings: number;
-  requiredMonthlyContribution: number;
-  selectedCurrency: string; // New field for the selected currency
+  name?: string;
+  currentAge?: number;
+  retirementAge?: number;
+  currentSavings?: number;
+  savingsContribution?: number;
+  monthlyIncomeRequired?: number;
+  requiredSavings?: number;
+  requiredMonthlyContribution?: number;
+  selectedCurrency?: string;
+  inflationRate?: number;
 }
 
 const initialState: CalculatorState = {
-  name: '',
-  currentAge: 0,
-  retirementAge: 0,
-  currentSavings: 0,
-  savingsContribution: 0,
-  monthlyIncomeRequired: 0,
-  requiredSavings: 0,
-  requiredMonthlyContribution: 0,
-  selectedCurrency: 'USD', // Default currency
+  name: undefined,
+  currentAge: undefined,
+  retirementAge: undefined,
+  currentSavings: undefined,
+  savingsContribution: undefined,
+  monthlyIncomeRequired: undefined,
+  requiredSavings: undefined,
+  requiredMonthlyContribution: undefined,
+  selectedCurrency: 'USD',
+  inflationRate: 0.02, // Default inflation rate (2%)
 };
 
 // Function to calculate required retirement savings and monthly contribution
@@ -30,14 +34,18 @@ export const calculateRetirementValues = (
   retirementAge: number,
   currentRetirementSavings: number,
   currentRetirementSavingsContribution: number,
-  monthlyIncomeRequired: number
+  monthlyIncomeRequired: number,
+  inflationRate: number
 ): { requiredSavings: number; requiredMonthlyContribution: number } => {
   const remainingYears = retirementAge - currentAge;
 
-  // Required Retirement Savings at Retirement Age
-  const requiredSavings = (monthlyIncomeRequired * 12) * remainingYears;
+  // Adjust for inflation in monthly income required
+  const inflationAdjustedMonthlyIncome = monthlyIncomeRequired * Math.pow(1 + inflationRate, remainingYears);
 
-  // Required Monthly Contribution to Achieve Retirement Savings Goal
+  // Required Retirement Savings at Retirement Age with inflation adjustment
+  const requiredSavings = (inflationAdjustedMonthlyIncome * 12) * remainingYears;
+
+  // Required Monthly Contribution to Achieve Retirement Savings Goal with inflation adjustment
   const requiredMonthlyContribution =
     (requiredSavings - currentRetirementSavings + currentRetirementSavingsContribution * 12 * remainingYears) /
     (remainingYears * 12);
@@ -55,11 +63,12 @@ const calculatorSlice = createSlice({
     },
     calculateRetirement: (state) => {
       const { requiredSavings, requiredMonthlyContribution } = calculateRetirementValues(
-        state.currentAge,
-        state.retirementAge,
-        state.currentSavings,
-        state.savingsContribution,
-        state.monthlyIncomeRequired
+        state.currentAge!,
+        state.retirementAge!,
+        state.currentSavings!,
+        state.savingsContribution!,
+        state.monthlyIncomeRequired!,
+        state.inflationRate!
       );
 
       return {
@@ -71,8 +80,11 @@ const calculatorSlice = createSlice({
     setCurrency: (state, action: PayloadAction<string>) => {
       return { ...state, selectedCurrency: action.payload };
     },
+    setInflationRate: (state, action: PayloadAction<number>) => {
+      return { ...state, inflationRate: action.payload };
+    },
   },
 });
 
-export const { setInputField, calculateRetirement, setCurrency } = calculatorSlice.actions;
+export const { setInputField, calculateRetirement, setCurrency, setInflationRate } = calculatorSlice.actions;
 export default calculatorSlice.reducer;

@@ -14,9 +14,12 @@ const Calculator: React.FC = () => {
   const handleChange = (field: string, value: any) => {
     dispatch(setInputField({ field, value }));
   };
+  const [isCalculated, setIsCalculated] = React.useState(false);
+  // State to track whether the calculate button has been clicked
 
   const handleCalculate = () => {
     dispatch(calculateRetirement());
+    setIsCalculated(true); // Set the flag to true after calculation
   };
 
   const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,9 +27,9 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 p-6 bg-white rounded-md shadow-md">
+    <div className="max-w-md mx-auto my-8 p-6 bg-white rounded-md shadow-md font-inter">
       <div className="mb-4">
-        <p className="text-xl font-bold">Hello {calculator.name}!!</p>
+        <p className="text-xl font-bold">Hello👋 {calculator.name}!!</p>
       </div>
 
       <form>
@@ -131,14 +134,19 @@ const Calculator: React.FC = () => {
       </form>
 
       <div className="mt-8">
-        <p className="text-sm">
-          Required Retirement Savings: {calculator.requiredSavings}{" "}
-          {calculator.selectedCurrency}
-        </p>
-        <p className="text-sm">
-          Required Monthly Contribution:{" "}
-          {calculator.requiredMonthlyContribution} {calculator.selectedCurrency}
-        </p>
+        {isCalculated && (
+          <div className="result-container bg-green-500 text-darkgreen p-4 rounded-md">
+            <p className="text-sm font-inter font-bold text-darkgreen">
+              Required Retirement Savings: {calculator.requiredSavings}{" "}
+              {calculator.selectedCurrency}
+            </p>
+            <p className="text-sm font-inter font-bold text-darkgreen">
+              Required Monthly Contribution:{" "}
+              {calculator.requiredMonthlyContribution}{" "}
+              {calculator.selectedCurrency}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
