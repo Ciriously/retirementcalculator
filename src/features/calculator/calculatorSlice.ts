@@ -9,6 +9,7 @@ interface CalculatorState {
   monthlyIncomeRequired: number;
   requiredSavings: number;
   requiredMonthlyContribution: number;
+  selectedCurrency: string; // New field for the selected currency
 }
 
 const initialState: CalculatorState = {
@@ -20,7 +21,9 @@ const initialState: CalculatorState = {
   monthlyIncomeRequired: 0,
   requiredSavings: 0,
   requiredMonthlyContribution: 0,
+  selectedCurrency: 'USD', // Default currency
 };
+
 // Function to calculate required retirement savings and monthly contribution
 export const calculateRetirementValues = (
   currentAge: number,
@@ -65,8 +68,11 @@ const calculatorSlice = createSlice({
         requiredMonthlyContribution,
       };
     },
+    setCurrency: (state, action: PayloadAction<string>) => {
+      return { ...state, selectedCurrency: action.payload };
+    },
   },
 });
 
-export const { setInputField, calculateRetirement } = calculatorSlice.actions;
+export const { setInputField, calculateRetirement, setCurrency } = calculatorSlice.actions;
 export default calculatorSlice.reducer;
