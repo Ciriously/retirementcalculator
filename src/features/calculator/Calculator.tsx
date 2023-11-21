@@ -24,68 +24,118 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>
-        <p>Hello {calculator.name}!!</p>
+    <div className="max-w-md mx-auto my-8 p-6 bg-white rounded-md shadow-md">
+      <div className="mb-4">
+        <p className="text-xl font-bold">Hello {calculator.name}!!</p>
       </div>
 
-      <label>Name:</label>
-      <input
-        type="text"
-        value={calculator.name}
-        onChange={(e) => handleChange("name", e.target.value)}
-      />
-      <label>Current Age</label>
-      <input
-        type="number"
-        value={calculator.currentAge}
-        onChange={(e) => handleChange("currentAge", e.target.value)}
-      />
-      <label>Retirement Age</label>
-      <input
-        type="number"
-        value={calculator.retirementAge}
-        onChange={(e) => handleChange("retirementAge", e.target.value)}
-      />
-      <label>Current Savings</label>
-      <input
-        type="number"
-        value={calculator.currentSavings}
-        onChange={(e) => handleChange("currentSavings", e.target.value)}
-      />
-      <label>Savings Contribution</label>
-      <input
-        type="number"
-        value={calculator.savingsContribution}
-        onChange={(e) => handleChange("savingsContribution", e.target.value)}
-      />
-      <label>Monthly Income Required</label>
-      <input
-        type="number"
-        value={calculator.monthlyIncomeRequired}
-        onChange={(e) => handleChange("monthlyIncomeRequired", e.target.value)}
-      />
+      <form>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Name:
+          </label>
+          <input
+            type="text"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.name}
+            onChange={(e) => handleChange("name", e.target.value)}
+          />
+        </div>
 
-      {/* Currency dropdown */}
-      <label>Currency:</label>
-      <select
-        value={calculator.selectedCurrency}
-        onChange={handleCurrencyChange}
-      >
-        <option value="USD">USD</option>
-        <option value="INR">INR</option>
-        {/* Add more currency options as needed */}
-      </select>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Current Age:
+          </label>
+          <input
+            type="number"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.currentAge}
+            onChange={(e) => handleChange("currentAge", e.target.value)}
+          />
+        </div>
 
-      <button onClick={handleCalculate}>Calculate</button>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Retirement Age:
+          </label>
+          <input
+            type="number"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.retirementAge}
+            onChange={(e) => handleChange("retirementAge", e.target.value)}
+          />
+        </div>
 
-      {/* Display results */}
-      <div>
-        <p>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Current Retirement Savings
+          </label>
+          <input
+            type="number"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.currentSavings}
+            onChange={(e) => handleChange("currentSavings", e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Current Retirement Savings Contribution
+          </label>
+          <input
+            type="number"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.savingsContribution}
+            onChange={(e) =>
+              handleChange("savingsContribution", e.target.value)
+            }
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Monthly Income Required at Retirement
+          </label>
+          <input
+            type="number"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.monthlyIncomeRequired}
+            onChange={(e) =>
+              handleChange("monthlyIncomeRequired", e.target.value)
+            }
+          />
+        </div>
+
+        {/* Currency dropdown */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Currency:
+          </label>
+          <select
+            className="mt-1 p-2 border rounded-md w-full"
+            value={calculator.selectedCurrency}
+            onChange={handleCurrencyChange}
+          >
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            {/* Add more currency options as needed */}
+          </select>
+        </div>
+
+        <button
+          type="button"
+          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          onClick={handleCalculate}
+        >
+          Calculate
+        </button>
+      </form>
+
+      <div className="mt-8">
+        <p className="text-sm">
           Required Retirement Savings: {calculator.requiredSavings}{" "}
           {calculator.selectedCurrency}
         </p>
-        <p>
+        <p className="text-sm">
           Required Monthly Contribution:{" "}
           {calculator.requiredMonthlyContribution} {calculator.selectedCurrency}
         </p>
