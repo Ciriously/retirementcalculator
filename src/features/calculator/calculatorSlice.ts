@@ -11,6 +11,7 @@ interface CalculatorState {
   requiredMonthlyContribution?: number;
   selectedCurrency?: string;
   inflationRate?: number;
+  error?: string; // Add error field to store error message
 }
 
 const initialState: CalculatorState = {
@@ -24,6 +25,7 @@ const initialState: CalculatorState = {
   requiredMonthlyContribution: undefined,
   selectedCurrency: 'USD',
   inflationRate: 0.02, // Default inflation rate (2%)
+  error: undefined, // Initialize error field as undefined
 };
 
 // Function to calculate required retirement savings and monthly contribution
@@ -64,6 +66,18 @@ const calculatorSlice = createSlice({
       return { ...state, [field]: value };
     },
     calculateRetirement: (state) => {
+      // Check if all input fields are filled
+      if (
+        state.currentAge === undefined ||
+        state.retirementAge === undefined ||
+        state.currentSavings === undefined ||
+        state.savingsContribution === undefined ||
+        state.monthlyIncomeRequired === undefined ||
+        state.inflationRate === undefined
+      ) {
+        return { ...state, error: 'Please fill all input fields' }; // Set error message
+      }
+
       const { requiredSavings, requiredMonthlyContribution } = calculateRetirementValues(
         state.currentAge!,
         state.retirementAge!,
@@ -77,6 +91,7 @@ const calculatorSlice = createSlice({
         ...state,
         requiredSavings,
         requiredMonthlyContribution,
+        error: undefined, // Clear error message
       };
     },
     setCurrency: (state, action: PayloadAction<string>) => {

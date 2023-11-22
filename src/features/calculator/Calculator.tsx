@@ -30,7 +30,7 @@ const Calculator: React.FC = () => {
       <div className="mb-4">
         <p className="text-xl font-medium">Hello👋 {calculator.name}!!</p>
       </div>
-
+      {/* Input form to add all inputs */}
       <form>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
@@ -108,6 +108,7 @@ const Calculator: React.FC = () => {
         </div>
 
         {/* Currency dropdown */}
+
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
             Currency:
@@ -119,7 +120,6 @@ const Calculator: React.FC = () => {
           >
             <option value="USD">USD</option>
             <option value="INR">INR</option>
-            {/* Add more currency options as needed */}
           </select>
         </div>
 
@@ -132,8 +132,16 @@ const Calculator: React.FC = () => {
         </button>
       </form>
 
+      {/* Error */}
+      {calculator.error && (
+        <div className="mt-4 p-3 bg-red-500 text-white rounded-md">
+          {calculator.error}
+        </div>
+      )}
+
+      {/*  results */}
       <div className="mt-8">
-        {isCalculated && (
+        {isCalculated && !calculator.error && (
           <div className="result-container bg-green-500 text-white p-4 rounded-md">
             <p className="text-lg font-semibold mb-2">Your Retirement Plan:</p>
 
@@ -158,7 +166,7 @@ const Calculator: React.FC = () => {
           </div>
         )}
       </div>
-
+      {/* signature */}
       <div className="mt-8">
         <p className="text-sm text-gray-600">
           Made with{" "}

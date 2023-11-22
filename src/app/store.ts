@@ -4,7 +4,7 @@ import calculatorReducer from '../features/calculator/calculatorSlice';
 const store = configureStore({
   reducer: {
     calculator: calculatorReducer,
-    // Add other reducers if any
+
   },
 });
 
