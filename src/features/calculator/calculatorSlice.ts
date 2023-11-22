@@ -77,8 +77,7 @@ const calculatorSlice = createSlice({
       ) {
         return { ...state, error: 'Please fill all input fields' }; // Set error message
       }
-    
-      // Check for negative values
+    // Check for negative values
       if (
         state.currentAge < 0 ||
         state.retirementAge < 0 ||
@@ -89,27 +88,20 @@ const calculatorSlice = createSlice({
       ) {
         return { ...state, error: 'Input values cannot be negative' };
       }
-    
-      // Check if age is below 0 or above 120
-      if (state.currentAge < 0 || state.retirementAge < 0 || state.currentAge > 120 || state.retirementAge > 120) {
-        return { ...state, error: 'Age must be between 0 and 120' };
-      }
-    
-      // Check if monthly income required is less than zero
-      if (state.monthlyIncomeRequired < 0) {
-        return { ...state, error: 'Monthly income required cannot be negative' };
-      }
-    
-      // Check if current age exceeds retirement age
-      if (state.currentAge >= state.retirementAge) {
-        return { ...state, error: 'Current age must be less than retirement age' };
-      }
-    
-      // Check if retirement age is more than 90
-      if (state.retirementAge > 90) {
-        return { ...state, error: 'Retirement age cannot exceed 90' };
-      }
-    
+
+   // Check if current age exceeds retirement age
+   if (state.currentAge >= state.retirementAge) {
+    return { ...state, error: 'Current age must be less than retirement age' };
+  }
+
+  // Check if retirement age is more than 90
+  if (state.retirementAge > 90) {
+    return { ...state, error: 'Retirement age cannot exceed 90' };
+  }
+  
+  if (state.retirementAge <= state.currentAge) {
+    return { ...state, error: 'Retirement age cannot be lower than current age' };
+  }
       const { requiredSavings, requiredMonthlyContribution } = calculateRetirementValues(
         state.currentAge!,
         state.retirementAge!,
@@ -118,7 +110,7 @@ const calculatorSlice = createSlice({
         state.monthlyIncomeRequired!,
         state.inflationRate!
       );
-    
+
       return {
         ...state,
         requiredSavings,

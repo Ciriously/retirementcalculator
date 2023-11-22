@@ -34,7 +34,7 @@ const Calculator: React.FC = () => {
       <form>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            Name:
+            Name
           </label>
           <input
             type="text"
@@ -46,7 +46,7 @@ const Calculator: React.FC = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            Current Age:
+            Current Age
           </label>
           <input
             type="number"
@@ -145,7 +145,7 @@ const Calculator: React.FC = () => {
 
         <button
           type="button"
-          className="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white p-3 rounded-md hover:from-blue-600 hover:via-blue-500 hover:to-blue-600 transition-all duration-300 ease-in-out"
+          className="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white py-3 px-6 rounded-md hover:from-blue-600 hover:via-blue-500 hover:to-blue-600 transition-all duration-300 ease-in-out shadow-md focus:outline-none focus:ring focus:border-blue-300"
           onClick={handleCalculate}
         >
           Calculate
@@ -186,7 +186,6 @@ const Calculator: React.FC = () => {
               </div>
               <div className="text-lg font-inter font-bold text-white">
                 {calculator.requiredSavings?.toLocaleString()}{" "}
-                {calculator.selectedCurrency}
                 {calculator.selectedCurrency}
               </div>
             </div>
