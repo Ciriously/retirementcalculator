@@ -4,12 +4,10 @@ import Banner from "./Banner";
 
 function App() {
   return (
-    <>
+    <div>
       <Banner />
       <Calculator />
-      {/* Use the proper component name */}
-      {/* <RetirementChart /> */}
-    </>
+    </div>
   );
 }
 
