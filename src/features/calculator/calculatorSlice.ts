@@ -77,6 +77,27 @@ const calculatorSlice = createSlice({
       ) {
         return { ...state, error: 'Please fill all input fields' }; // Set error message
       }
+    // Check for negative values
+      if (
+        state.currentAge < 0 ||
+        state.retirementAge < 0 ||
+        state.currentSavings < 0 ||
+        state.savingsContribution < 0 ||
+        state.monthlyIncomeRequired < 0 ||
+        state.inflationRate < 0
+      ) {
+        return { ...state, error: 'Input values cannot be negative' };
+      }
+
+   // Check if current age exceeds retirement age
+   if (state.currentAge >= state.retirementAge) {
+    return { ...state, error: 'Current age must be less than retirement age' };
+  }
+
+  // Check if retirement age is more than 90
+  if (state.retirementAge > 90) {
+    return { ...state, error: 'Retirement age cannot exceed 90' };
+  }
 
       const { requiredSavings, requiredMonthlyContribution } = calculateRetirementValues(
         state.currentAge!,
@@ -95,10 +116,10 @@ const calculatorSlice = createSlice({
       };
     },
     setCurrency: (state, action: PayloadAction<string>) => {
-      return { ...state, selectedCurrency: action.payload };
+      return { ...state, selectedCurrency: action.payload, error: undefined };
     },
     setInflationRate: (state, action: PayloadAction<number>) => {
-      return { ...state, inflationRate: action.payload };
+      return { ...state, inflationRate: action.payload, error: undefined };
     },
   },
 });
