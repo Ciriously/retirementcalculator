@@ -72,44 +72,64 @@ const Calculator: React.FC = () => {
           <label className="block text-sm font-medium text-gray-600">
             Current Retirement Savings
           </label>
-          <input
-            type="number"
-            className="mt-1 p-2 border rounded-md w-full font-medium"
-            value={calculator.currentSavings}
-            onChange={(e) => handleChange("currentSavings", e.target.value)}
-          />
+          <div className="flex items-center">
+            <input
+              type="text"
+              className="mt-1 p-2 border rounded-md w-full font-medium"
+              value={calculator.currentSavings?.toLocaleString() || ""}
+              onChange={(e) =>
+                handleChange(
+                  "currentSavings",
+                  e.target.value.replace(/,/g, "").replace(/\$/g, "")
+                )
+              }
+              placeholder="$"
+            />
+          </div>
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
             Current Retirement Savings Contribution
           </label>
-          <input
-            type="number"
-            className="mt-1 p-2 border rounded-md w-full font-medium"
-            value={calculator.savingsContribution}
-            onChange={(e) =>
-              handleChange("savingsContribution", e.target.value)
-            }
-          />
+          <div className="flex items-center">
+            <input
+              type="text"
+              className="mt-1 p-2 border rounded-md w-full font-medium"
+              value={calculator.savingsContribution?.toLocaleString() || ""}
+              onChange={(e) =>
+                handleChange(
+                  "savingsContribution",
+                  e.target.value.replace(/,/g, "").replace(/\$/g, "")
+                )
+              }
+              placeholder="$"
+            />
+          </div>
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
             Monthly Income Required at Retirement
           </label>
-          <input
-            type="number"
-            className="mt-1 p-2 border rounded-md w-full font-medium"
-            value={calculator.monthlyIncomeRequired}
-            onChange={(e) =>
-              handleChange("monthlyIncomeRequired", e.target.value)
-            }
-          />
+          <div className="flex items-center">
+            <input
+              type="text"
+              className="mt-1 p-2 border rounded-md w-full font-medium"
+              value={calculator.monthlyIncomeRequired?.toLocaleString() || ""}
+              onChange={(e) =>
+                handleChange(
+                  "monthlyIncomeRequired",
+                  e.target.value.replace(/,/g, "").replace(/\$/g, "")
+                )
+              }
+              placeholder="$"
+            />
+          </div>
         </div>
 
         {/* Currency dropdown */}
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
             Currency:
           </label>
@@ -121,7 +141,7 @@ const Calculator: React.FC = () => {
             <option value="USD">USD</option>
             <option value="INR">INR</option>
           </select>
-        </div>
+        </div> */}
 
         <button
           type="button"
@@ -132,40 +152,48 @@ const Calculator: React.FC = () => {
         </button>
       </form>
 
-      {/* Error */}
       {calculator.error && (
         <div className="mt-4 p-3 bg-red-500 text-white rounded-md">
           {calculator.error}
         </div>
       )}
 
-      {/*  results */}
+      {/* Results */}
       <div className="mt-8">
         {isCalculated && !calculator.error && (
-          <div className="result-container bg-green-500 text-white p-4 rounded-md">
-            <p className="text-lg font-semibold mb-2">Your Retirement Plan:</p>
+          <div className="result-container bg-green-500 text-white p-4 rounded-md text-center">
+            <p className="text-lg font-semibold mb-4">Your Retirement Plan:</p>
 
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-inter font-semibold text-darkgreen">
-                Required Retirement Savings:
-              </span>
-              <span className="text-lg font-inter font-bold text-darkgreen">
-                {calculator.requiredSavings} {calculator.selectedCurrency}
-              </span>
+            <div className="flex flex-col items-center mb-4">
+              <div className="mb-2">
+                <span className="text-sm font-inter font-semibold text-darkgreen">
+                  Required Retirement Savings:
+                </span>
+              </div>
+              <div className="text-lg font-inter font-bold text-white">
+                {calculator.requiredSavings?.toLocaleString()}{" "}
+                {calculator.selectedCurrency}
+              </div>
             </div>
 
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-inter font-semibold text-darkgreen">
-                Required Monthly Contribution:
-              </span>
-              <span className="text-lg font-inter font-bold text-darkgreen">
-                {calculator.requiredMonthlyContribution}{" "}
+            <div className="mx-auto border-b border-white my-4 w-1/2"></div>
+
+            <div className="flex flex-col items-center">
+              <div className="mb-2">
+                <span className="text-sm font-inter font-semibold text-darkgreen">
+                  Required Monthly Contribution:
+                </span>
+              </div>
+              <div className="text-lg font-inter font-bold text-white">
+                {calculator.requiredSavings?.toLocaleString()}{" "}
                 {calculator.selectedCurrency}
-              </span>
+                {calculator.selectedCurrency}
+              </div>
             </div>
           </div>
         )}
       </div>
+
       {/* signature */}
       <div className="mt-8">
         <p className="text-sm text-gray-600">
