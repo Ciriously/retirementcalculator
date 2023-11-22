@@ -20,6 +20,10 @@ To use the retirement calculator, follow these steps:
 
 The calculator will then display the estimated amount of money you will have at retirement based on your inputs.
 
+## Output
+
+![Retirement Calculator Output](./public/output.jpg)
+
 ## Contribution
 
 Contributions to the retirement calculator are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request.
