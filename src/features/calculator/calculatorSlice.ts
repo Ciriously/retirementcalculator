@@ -12,6 +12,7 @@ interface CalculatorState {
   selectedCurrency?: string;
   inflationRate?: number;
   error?: string; // Add error field to store error message
+  [key: string]: string | number | undefined; // Index signature
 }
 
 const initialState: CalculatorState = {
@@ -56,6 +57,7 @@ export const calculateRetirementValues = (
   };
 };
 
+const requiredFields: Array<keyof CalculatorState> = ['currentAge', 'retirementAge', 'currentSavings', 'savingsContribution', 'monthlyIncomeRequired', 'inflationRate'];
 
 const calculatorSlice = createSlice({
   name: 'calculator',
@@ -66,51 +68,39 @@ const calculatorSlice = createSlice({
       return { ...state, [field]: value };
     },
     calculateRetirement: (state) => {
-      // Check if all input fields are filled
-      if (
-        state.currentAge === undefined ||
-        state.retirementAge === undefined ||
-        state.currentSavings === undefined ||
-        state.savingsContribution === undefined ||
-        state.monthlyIncomeRequired === undefined ||
-        state.inflationRate === undefined
-      ) {
-        return { ...state, error: 'Please fill all input fields' }; // Set error message
+      // Check if all required input fields are filled
+      if (requiredFields.some(field => state[field] === undefined)) {
+        return { ...state, error: 'Please fill all input fields' };
       }
-    // Check for negative values
-      if (
-        state.currentAge < 0 ||
-        state.retirementAge < 0 ||
-        state.currentSavings < 0 ||
-        state.savingsContribution < 0 ||
-        state.monthlyIncomeRequired < 0 ||
-        state.inflationRate < 0
-      ) {
+    
+      // Check for negative values
+      if (requiredFields.some(field => Number(state[field]) < 0)) {
         return { ...state, error: 'Input values cannot be negative' };
       }
-
-   // Check if current age exceeds retirement age
-   if (state.currentAge >= state.retirementAge) {
-    return { ...state, error: 'Current age must be less than retirement age' };
-  }
-
-  // Check if retirement age is more than 90
-  if (state.retirementAge > 90) {
-    return { ...state, error: 'Retirement age cannot exceed 90' };
-  }
-  
-  if (state.retirementAge <= state.currentAge) {
-    return { ...state, error: 'Retirement age cannot be lower than current age' };
-  }
+    
+      // Convert currentAge and retirementAge to numbers for comparison
+      const currentAge = Number(state.currentAge);
+      const retirementAge = Number(state.retirementAge);
+    
+      // Check if current age exceeds retirement age
+      if (currentAge >= retirementAge) {
+        return { ...state, error: 'Current age must be less than retirement age' };
+      }
+    
+      // Check if retirement age is more than 90
+      if (retirementAge > 90) {
+        return { ...state, error: 'Retirement age cannot exceed 90' };
+      }
+    
       const { requiredSavings, requiredMonthlyContribution } = calculateRetirementValues(
-        state.currentAge!,
-        state.retirementAge!,
-        state.currentSavings!,
-        state.savingsContribution!,
-        state.monthlyIncomeRequired!,
-        state.inflationRate!
+        currentAge,
+        retirementAge,
+        Number(state.currentSavings),
+        Number(state.savingsContribution),
+        Number(state.monthlyIncomeRequired),
+        Number(state.inflationRate)
       );
-
+    
       return {
         ...state,
         requiredSavings,
@@ -118,6 +108,7 @@ const calculatorSlice = createSlice({
         error: undefined, // Clear error message
       };
     },
+    
     setCurrency: (state, action: PayloadAction<string>) => {
       return { ...state, selectedCurrency: action.payload, error: undefined };
     },
