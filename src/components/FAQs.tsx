@@ -78,6 +78,28 @@ const FAQs: React.FC = () => {
           </div>
         ))}
       </div>
+
+      <div className="mt-8">
+        <p className="text-sm text-gray-600">
+          Made by{" "}
+          <h1 className="text-1xl  font-inter font-bold mb-4">
+            <a
+              href="https://www.linkedin.com/in/adityad12/"
+              className="text-decoration-none"
+            >
+              <span
+                className="bg-gradient-to-r text-transparent bg-clip-text"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, #374957 , #453ea5  )",
+                }}
+              >
+                Aditya Mishra
+              </span>
+            </a>
+          </h1>
+        </p>
+      </div>
     </div>
   );
 };

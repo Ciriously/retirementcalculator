@@ -1,6 +1,6 @@
 import Calculator from "./features/calculator/Calculator";
 import "./App.css";
-import Banner from "./Banner";
+import Banner from "./components/Banner";
 import FAQs from "./components/FAQs";
 
 function App() {

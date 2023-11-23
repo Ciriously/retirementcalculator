@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { setInputField, calculateRetirement } from "./calculatorSlice";
 import ReactApexChart from "react-apexcharts";
-import FAQs from "../../components/FAQs";
 
 const Calculator: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,10 +16,11 @@ const Calculator: React.FC = () => {
   const handleCalculate = () => {
     dispatch(calculateRetirement());
     setIsCalculated(true);
-    // Scroll to the FAQ section
+
+    // Add a margin to the top of the FAQ section
     const faqSection = document.getElementById("faq-section");
     if (faqSection) {
-      faqSection.scrollIntoView({ behavior: "smooth" });
+      faqSection.style.marginTop = "80px"; // Adjust the value as needed
     }
   };
 
