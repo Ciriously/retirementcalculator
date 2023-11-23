@@ -36,20 +36,21 @@ export const calculateRetirementValues = (
   currentRetirementSavings: number,
   currentRetirementSavingsContribution: number,
   monthlyIncomeRequired: number,
-  inflationRate: number
+  inflationRate: number,
+  lifeExpectancy: number
 ): { requiredSavings: number; requiredMonthlyContribution: number } => {
   const remainingYears = retirementAge - currentAge;
 
   // Adjust for inflation in monthly income required
   const inflationAdjustedMonthlyIncome = monthlyIncomeRequired * Math.pow(1 + inflationRate, remainingYears);
 
-  // Required Retirement Savings at Retirement Age with inflation adjustment
-  const requiredSavings = (inflationAdjustedMonthlyIncome * 12) * remainingYears;
+  // Required Retirement Savings at Retirement Age with inflation adjustment and life expectancy consideration
+  const requiredSavings = (inflationAdjustedMonthlyIncome * 12) * (lifeExpectancy - retirementAge);
 
-  // Required Monthly Contribution to Achieve Retirement Savings Goal with inflation adjustment
+  // Required Monthly Contribution to Achieve Retirement Savings Goal with inflation adjustment and life expectancy consideration
   const requiredMonthlyContribution =
-    (requiredSavings - currentRetirementSavings + currentRetirementSavingsContribution * 12 * remainingYears) /
-    (remainingYears * 12);
+    (requiredSavings - currentRetirementSavings + currentRetirementSavingsContribution * 12 * (lifeExpectancy - retirementAge)) /
+    ((lifeExpectancy - retirementAge) * 12);
 
   return {
     requiredSavings: Number(requiredSavings.toFixed(2)),
@@ -91,14 +92,18 @@ const calculatorSlice = createSlice({
       if (retirementAge > 90) {
         return { ...state, error: 'Retirement age cannot exceed 90' };
       }
-    
+
+      // Assumed life expectancy
+      const lifeExpectancy = 90;
+
       const { requiredSavings, requiredMonthlyContribution } = calculateRetirementValues(
         currentAge,
         retirementAge,
         Number(state.currentSavings),
         Number(state.savingsContribution),
         Number(state.monthlyIncomeRequired),
-        Number(state.inflationRate)
+        Number(state.inflationRate),
+        lifeExpectancy
       );
     
       return {
