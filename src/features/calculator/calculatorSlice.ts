@@ -11,8 +11,8 @@ interface CalculatorState {
   requiredMonthlyContribution?: number;
   selectedCurrency?: string;
   inflationRate?: number;
-  error?: string; // Add error field to store error message
-  [key: string]: string | number | undefined; // Index signature
+  error?: string; 
+  [key: string]: string | number | undefined;
 }
 
 const initialState: CalculatorState = {
@@ -26,7 +26,7 @@ const initialState: CalculatorState = {
   requiredMonthlyContribution: undefined,
   selectedCurrency: 'USD',
   inflationRate: 0.06, // Default inflation rate (6%)
-  error: undefined, // Initialize error field as undefined
+  error: undefined, // Default error message
 };
 
 // Function to calculate required retirement savings and monthly contribution

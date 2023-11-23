@@ -17,10 +17,9 @@ const Calculator: React.FC = () => {
     dispatch(calculateRetirement());
     setIsCalculated(true);
 
-    // Add a margin to the top of the FAQ section
     const faqSection = document.getElementById("faq-section");
     if (faqSection) {
-      faqSection.style.marginTop = "80px"; // Adjust the value as needed
+      faqSection.style.marginTop = "80px";
     }
   };
 
@@ -70,7 +69,7 @@ const Calculator: React.FC = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            Retirement Age:
+            Retirement Age
           </label>
           <input
             type="number"
@@ -86,7 +85,7 @@ const Calculator: React.FC = () => {
           </label>
           <div className="flex items-center">
             <input
-              type="text"
+              type="number"
               className="mt-1 p-2 border rounded-md w-full font-medium"
               value={calculator.currentSavings?.toLocaleString() || ""}
               onChange={(e) =>
@@ -105,7 +104,7 @@ const Calculator: React.FC = () => {
           </label>
           <div className="flex items-center">
             <input
-              type="text"
+              type="number"
               className="mt-1 p-2 border rounded-md w-full font-medium"
               value={calculator.savingsContribution?.toLocaleString() || ""}
               onChange={(e) =>
@@ -114,7 +113,7 @@ const Calculator: React.FC = () => {
                   e.target.value.replace(/,/g, "").replace(/\$/g, "")
                 )
               }
-              placeholder="$"
+              placeholder="$ Monthly contribution"
             />
           </div>
         </div>
@@ -125,7 +124,7 @@ const Calculator: React.FC = () => {
           </label>
           <div className="flex items-center">
             <input
-              type="text"
+              type="number"
               className="mt-1 p-2 border rounded-md w-full font-medium"
               value={calculator.monthlyIncomeRequired?.toLocaleString() || ""}
               onChange={(e) =>
@@ -140,6 +139,7 @@ const Calculator: React.FC = () => {
         </div>
 
         {/* Link to FAQ */}
+
         <div className="mt-6 mb-4 text-left">
           <p className="text-sm text-gray-600">
             <a
@@ -180,8 +180,8 @@ const Calculator: React.FC = () => {
             />
             <div className="flex flex-col items-center mb-4">
               <div className="mb-2">
-                <span className="text-sm font-inter font-semibold text-darkgreen">
-                  Required Retirement Savings:
+                <span className="text-lg font-inter font-semibold text-darkgreen">
+                  Required Retirement Savings
                 </span>
               </div>
               <div className="text-lg font-inter font-bold text-white">
@@ -194,8 +194,8 @@ const Calculator: React.FC = () => {
 
             <div className="flex flex-col items-center">
               <div className="mb-2">
-                <span className="text-sm font-inter font-semibold text-darkgreen">
-                  Required Monthly Contribution:
+                <span className="text-lg font-inter font-semibold text-darkgreen">
+                  Required Monthly Contribution
                 </span>
               </div>
               <div className="text-lg font-inter font-bold text-white">
