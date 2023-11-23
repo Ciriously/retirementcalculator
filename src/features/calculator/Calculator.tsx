@@ -185,7 +185,7 @@ const Calculator: React.FC = () => {
                 </span>
               </div>
               <div className="text-lg font-inter font-bold text-white">
-                {calculator.requiredSavings?.toLocaleString()}{" "}
+                {calculator.requiredMonthlyContribution?.toLocaleString()}{" "}
                 {calculator.selectedCurrency}
               </div>
             </div>
