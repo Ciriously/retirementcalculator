@@ -1,12 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import {
-  setInputField,
-  calculateRetirement,
-  setCurrency,
-} from "./calculatorSlice";
+import { setInputField, calculateRetirement } from "./calculatorSlice";
 import ReactApexChart from "react-apexcharts";
+import FAQs from "../../components/FAQs";
 
 const Calculator: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,6 +17,11 @@ const Calculator: React.FC = () => {
   const handleCalculate = () => {
     dispatch(calculateRetirement());
     setIsCalculated(true);
+    // Scroll to the FAQ section
+    const faqSection = document.getElementById("faq-section");
+    if (faqSection) {
+      faqSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const chartOptions = {
@@ -137,21 +139,17 @@ const Calculator: React.FC = () => {
           </div>
         </div>
 
-        {/* Currency dropdown */}
-
-        {/* <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
-            Currency:
-          </label>
-          <select
-            className="mt-1 p-2 border rounded-md w-full font-medium"
-            value={calculator.selectedCurrency}
-            onChange={handleCurrencyChange}
-          >
-            <option value="USD">USD</option>
-            <option value="INR">INR</option>
-          </select>
-        </div> */}
+        {/* Link to FAQ */}
+        <div className="mt-6 mb-4 text-left">
+          <p className="text-sm text-gray-600">
+            <a
+              href="#faq-section"
+              className="text-blue-500 hover:underline font-bold"
+            >
+              How do we Calculate your results?
+            </a>
+          </p>
+        </div>
 
         <button
           type="button"

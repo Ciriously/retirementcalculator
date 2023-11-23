@@ -13,7 +13,7 @@ const Banner = () => {
             Retirement Calculator
           </span>
         </h1>
-        <p className="text-lg font-medium text-gray font-inter font-sansserif ">
+        <p className="text-lg font-medium text-gray-500 font-inter font-sansserif ">
           "Calculate Your Future Financial Freedom Now!"
         </p>
       </div>
