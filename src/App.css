@@ -1,7 +1,10 @@
 /* styles.css */
+/* src/styles.css */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
 
 body {
-  background: linear-gradient(180deg, #374957 0%, #453ea5 100%);
+  background-color: #fff;
+  /* background: linear-gradient(180deg, #374957 0%, #453ea5 100%); */
   border-radius: 8px;
   margin: 0;
   padding: 0;

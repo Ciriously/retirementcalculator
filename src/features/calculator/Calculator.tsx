@@ -6,6 +6,7 @@ import {
   calculateRetirement,
   setCurrency,
 } from "./calculatorSlice";
+import ReactApexChart from "react-apexcharts";
 
 const Calculator: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,21 @@ const Calculator: React.FC = () => {
     setIsCalculated(true);
   };
 
-  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setCurrency(e.target.value));
+  const chartOptions = {
+    labels: ["Required Retirement Savings", "Required Monthly Contribution"],
+    colors: ["#1e88e5", "#43a047"],
+    legend: {
+      show: false,
+    },
   };
 
+  const chartSeries = [
+    calculator.requiredSavings || 0,
+    calculator.requiredMonthlyContribution || 0,
+  ];
+
   return (
-    <div className="max-w-md mx-auto lg:max-w-2xl my-8 p-6 bg-white rounded-md shadow-md font-inter">
+    <div className="max-w-md mx-auto lg:max-w-2xl my-8 p-6 bg-sky-50 rounded-md shadow-md font-inter">
       <div className="mb-4">
         <p className="text-xl font-medium">Hello👋 {calculator.name}!!</p>
       </div>
@@ -163,7 +173,13 @@ const Calculator: React.FC = () => {
         {isCalculated && !calculator.error && (
           <div className="result-container bg-green-500 text-white p-4 rounded-md text-center">
             <p className="text-lg font-semibold mb-4">Your Retirement Plan:</p>
-
+            {/* ApexChart component */}
+            <ReactApexChart
+              options={chartOptions}
+              series={chartSeries}
+              type="donut"
+              height={300}
+            />
             <div className="flex flex-col items-center mb-4">
               <div className="mb-2">
                 <span className="text-sm font-inter font-semibold text-darkgreen">
@@ -191,30 +207,6 @@ const Calculator: React.FC = () => {
             </div>
           </div>
         )}
-      </div>
-
-      {/* signature */}
-      <div className="mt-8">
-        <p className="text-sm text-gray-600">
-          Made with{" "}
-          <span role="img" aria-label="heart">
-            ❤️
-          </span>{" "}
-          by{" "}
-          <a
-            href="https://github.com/Ciriously"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gradient bg-gradient-to-r from-red-600 via-yellow-500 to-green-400 hover:underline"
-            style={{
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            Aditya Mishra
-          </a>
-        </p>
       </div>
     </div>
   );
