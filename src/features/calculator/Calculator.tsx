@@ -25,7 +25,7 @@ const Calculator: React.FC = () => {
 
   const chartOptions = {
     labels: ["Required Retirement Savings", "Required Monthly Contribution"],
-    colors: ["#1e88e5", "#43a047"],
+    colors: ["#1e88e5", "#6d28d9"],
     legend: {
       show: false,
     },

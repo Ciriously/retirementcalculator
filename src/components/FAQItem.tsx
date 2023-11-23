@@ -28,7 +28,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
           &#9660;
         </span>
       </div>
-      {isOpen && <p className="mt-2 font-inter">{answer}</p>}
+      {isOpen && <p className="mt-2 font-inter ">{answer}</p>}
     </div>
   );
 };

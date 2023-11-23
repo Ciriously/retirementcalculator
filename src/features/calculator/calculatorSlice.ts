@@ -11,7 +11,7 @@ interface CalculatorState {
   requiredMonthlyContribution?: number;
   selectedCurrency?: string;
   inflationRate?: number;
-  error?: string; 
+  error?: string; // error field to store error message
   [key: string]: string | number | undefined;
 }
 
