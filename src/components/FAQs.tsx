@@ -1,4 +1,3 @@
-// FAQs.tsx
 import React, { useState } from "react";
 import FAQItem from "./FAQItem";
 
