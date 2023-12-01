@@ -15,7 +15,7 @@ const Calculator: React.FC = () => {
 
   const handleCalculate = () => {
     dispatch(calculateRetirement());
-    setIsCalculated(true);
+    setIsCalculated(true); //dispacth the action to calculate the retirement
 
     const faqSection = document.getElementById("faq-section");
     if (faqSection) {

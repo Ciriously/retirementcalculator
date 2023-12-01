@@ -68,6 +68,7 @@ const calculatorSlice = createSlice({
       return { ...state, [field]: value };
     },
     calculateRetirement: (state) => {
+      
       // Check if all required input fields are filled
       if (requiredFields.some(field => state[field] === undefined)) {
         return { ...state, error: 'Please fill all input fields' };
@@ -100,8 +101,7 @@ const calculatorSlice = createSlice({
         Number(state.monthlyIncomeRequired),
         Number(state.inflationRate)
       );
-    
-      return {
+     return {
         ...state,
         requiredSavings,
         requiredMonthlyContribution,
